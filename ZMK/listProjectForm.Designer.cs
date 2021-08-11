@@ -1,7 +1,7 @@
 ﻿
 namespace ZMK
 {
-    partial class Form1
+    partial class listProjectForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,10 +31,8 @@ namespace ZMK
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(listProjectForm));
             this.grid_projects = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatetimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.zmkDataSet = new ZMK.zmkDataSet();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,6 +44,9 @@ namespace ZMK
             this.tb_describe_project = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatetimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid_projects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zmkDataSet)).BeginInit();
@@ -61,6 +62,7 @@ namespace ZMK
             this.grid_projects.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_projects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_projects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.index,
             this.nameDataGridViewTextBoxColumn,
             this.updatetimeDataGridViewTextBoxColumn});
             this.grid_projects.DataSource = this.projectSetBindingSource;
@@ -68,27 +70,11 @@ namespace ZMK
             this.grid_projects.MultiSelect = false;
             this.grid_projects.Name = "grid_projects";
             this.grid_projects.ReadOnly = true;
+            this.grid_projects.RowHeadersVisible = false;
             this.grid_projects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid_projects.Size = new System.Drawing.Size(344, 346);
+            this.grid_projects.Size = new System.Drawing.Size(505, 346);
             this.grid_projects.TabIndex = 0;
             this.grid_projects.SelectionChanged += new System.EventHandler(this.grid_projects_SelectionChanged);
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Название";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // updatetimeDataGridViewTextBoxColumn
-            // 
-            this.updatetimeDataGridViewTextBoxColumn.DataPropertyName = "update_time";
-            this.updatetimeDataGridViewTextBoxColumn.HeaderText = "Последнее обновление";
-            this.updatetimeDataGridViewTextBoxColumn.Name = "updatetimeDataGridViewTextBoxColumn";
-            this.updatetimeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // projectSetBindingSource
             // 
@@ -127,6 +113,7 @@ namespace ZMK
             this.btn_addProject.Size = new System.Drawing.Size(35, 35);
             this.btn_addProject.TabIndex = 2;
             this.btn_addProject.UseVisualStyleBackColor = true;
+            this.btn_addProject.Click += new System.EventHandler(this.btn_addProject_Click);
             // 
             // projectSetTableAdapter
             // 
@@ -138,7 +125,7 @@ namespace ZMK
             this.gb_projectProps.Controls.Add(this.tb_describe_project);
             this.gb_projectProps.Controls.Add(this.label4);
             this.gb_projectProps.Controls.Add(this.label2);
-            this.gb_projectProps.Location = new System.Drawing.Point(368, 92);
+            this.gb_projectProps.Location = new System.Drawing.Point(528, 92);
             this.gb_projectProps.Name = "gb_projectProps";
             this.gb_projectProps.Size = new System.Drawing.Size(420, 346);
             this.gb_projectProps.TabIndex = 4;
@@ -182,18 +169,46 @@ namespace ZMK
             this.label2.TabIndex = 0;
             this.label2.Text = "Описание: ";
             // 
-            // Form1
+            // index
+            // 
+            this.index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.index.HeaderText = "№";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.Width = 43;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Название";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // updatetimeDataGridViewTextBoxColumn
+            // 
+            this.updatetimeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.updatetimeDataGridViewTextBoxColumn.DataPropertyName = "update_time";
+            this.updatetimeDataGridViewTextBoxColumn.HeaderText = "Последнее обновление";
+            this.updatetimeDataGridViewTextBoxColumn.Name = "updatetimeDataGridViewTextBoxColumn";
+            this.updatetimeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.updatetimeDataGridViewTextBoxColumn.Width = 151;
+            // 
+            // listProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(960, 451);
             this.Controls.Add(this.gb_projectProps);
             this.Controls.Add(this.btn_removeProject);
             this.Controls.Add(this.btn_addProject);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grid_projects);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "listProjectForm";
             this.Text = "ЗМК24";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid_projects)).EndInit();
@@ -215,13 +230,14 @@ namespace ZMK
         private zmkDataSet zmkDataSet;
         private System.Windows.Forms.BindingSource projectSetBindingSource;
         private zmkDataSetTableAdapters.ProjectSetTableAdapter projectSetTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatetimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.GroupBox gb_projectProps;
         private System.Windows.Forms.Label lb_create_date;
         private System.Windows.Forms.TextBox tb_describe_project;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatetimeDataGridViewTextBoxColumn;
     }
 }
 

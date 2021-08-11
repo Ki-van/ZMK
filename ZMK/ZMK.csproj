@@ -58,11 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="addProjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="addProjectForm.Designer.cs">
+      <DependentUpon>addProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InstrumentSet.cs">
       <DependentUpon>zmkEDM.tt</DependentUpon>
@@ -72,6 +72,12 @@
     </Compile>
     <Compile Include="LaborObjectsSet.cs">
       <DependentUpon>zmkEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="listProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="listProjectForm.Designer.cs">
+      <DependentUpon>listProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ManufacturingStepsSet.cs">
       <DependentUpon>zmkEDM.tt</DependentUpon>
@@ -113,8 +119,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>zmkEDM.edmx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="addProjectForm.resx">
+      <DependentUpon>addProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="listProjectForm.resx">
+      <DependentUpon>listProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
