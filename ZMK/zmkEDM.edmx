@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="zmkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="InstrumentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobTitleSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LaborObjectsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManufacturingStepsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="params" Type="nvarchar(max)" />
+          <Property Name="create_time" Type="datetime" Nullable="false" />
+          <Property Name="update_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TechOpsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LaborObjectsId" Type="int" Nullable="false" />
+          <Property Name="InstrumentId" Type="int" Nullable="false" />
+          <Property Name="TPId" Type="bigint" Nullable="false" />
+          <Property Name="TimeNormId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeNormSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Norm" Type="float" Nullable="false" />
+          <Property Name="WorkTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ManufacturingStepsId" Type="int" Nullable="false" />
+          <Property Name="WorkTypeId" Type="int" Nullable="false" />
+          <Property Name="JobTitleId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkTypeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_fkLaborObjectsTechOps">
+          <End Role="LaborObjectsSet" Type="Self.LaborObjectsSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaborObjectsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="LaborObjectsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fkProjectTP">
+          <End Role="ProjectSet" Type="Self.ProjectSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fkWorkTypeTP">
+          <End Role="WorkTypeSet" Type="Self.WorkTypeSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstrumentTechOps">
+          <End Role="InstrumentSet" Type="Self.InstrumentSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstrumentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="InstrumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobTitleTP">
+          <End Role="JobTitleSet" Type="Self.JobTitleSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitleSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="JobTitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ManufacturingStepsTP">
+          <End Role="ManufacturingStepsSet" Type="Self.ManufacturingStepsSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturingStepsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="ManufacturingStepsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeNormTechOps">
+          <End Role="TimeNormSet" Type="Self.TimeNormSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeNormSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="TimeNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TPTechOps">
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="TPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkTypeTimeNorm">
+          <End Role="WorkTypeSet" Type="Self.WorkTypeSet" Multiplicity="1" />
+          <End Role="TimeNormSet" Type="Self.TimeNormSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeNormSet">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zmkModelStoreContainer">
+          <EntitySet Name="InstrumentSet" EntityType="Self.InstrumentSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobTitleSet" EntityType="Self.JobTitleSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LaborObjectsSet" EntityType="Self.LaborObjectsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManufacturingStepsSet" EntityType="Self.ManufacturingStepsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectSet" EntityType="Self.ProjectSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechOpsSet" EntityType="Self.TechOpsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeNormSet" EntityType="Self.TimeNormSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPSet" EntityType="Self.TPSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkTypeSet" EntityType="Self.WorkTypeSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_fkLaborObjectsTechOps" Association="Self.FK_fkLaborObjectsTechOps">
+            <End Role="LaborObjectsSet" EntitySet="LaborObjectsSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fkProjectTP" Association="Self.FK_fkProjectTP">
+            <End Role="ProjectSet" EntitySet="ProjectSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fkWorkTypeTP" Association="Self.FK_fkWorkTypeTP">
+            <End Role="WorkTypeSet" EntitySet="WorkTypeSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstrumentTechOps" Association="Self.FK_InstrumentTechOps">
+            <End Role="InstrumentSet" EntitySet="InstrumentSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobTitleTP" Association="Self.FK_JobTitleTP">
+            <End Role="JobTitleSet" EntitySet="JobTitleSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ManufacturingStepsTP" Association="Self.fk_ManufacturingStepsTP">
+            <End Role="ManufacturingStepsSet" EntitySet="ManufacturingStepsSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeNormTechOps" Association="Self.FK_TimeNormTechOps">
+            <End Role="TimeNormSet" EntitySet="TimeNormSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TPTechOps" Association="Self.FK_TPTechOps">
+            <End Role="TPSet" EntitySet="TPSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkTypeTimeNorm" Association="Self.FK_WorkTypeTimeNorm">
+            <End Role="WorkTypeSet" EntitySet="WorkTypeSet" />
+            <End Role="TimeNormSet" EntitySet="TimeNormSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zmkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InstrumentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TechOpsSet" Relationship="Self.FK_InstrumentTechOps" FromRole="InstrumentSet" ToRole="TechOpsSet" />
+        </EntityType>
+        <EntityType Name="JobTitleSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TPSet" Relationship="Self.FK_JobTitleTP" FromRole="JobTitleSet" ToRole="TPSet" />
+        </EntityType>
+        <EntityType Name="LaborObjectsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TechOpsSet" Relationship="Self.FK_fkLaborObjectsTechOps" FromRole="LaborObjectsSet" ToRole="TechOpsSet" />
+        </EntityType>
+        <EntityType Name="ManufacturingStepsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TPSet" Relationship="Self.fk_ManufacturingStepsTP" FromRole="ManufacturingStepsSet" ToRole="TPSet" />
+        </EntityType>
+        <EntityType Name="ProjectSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="params" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="create_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TPSet" Relationship="Self.FK_fkProjectTP" FromRole="ProjectSet" ToRole="TPSet" />
+        </EntityType>
+        <EntityType Name="TechOpsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LaborObjectsId" Type="Int32" Nullable="false" />
+          <Property Name="InstrumentId" Type="Int32" Nullable="false" />
+          <Property Name="TPId" Type="Int64" Nullable="false" />
+          <Property Name="TimeNormId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="InstrumentSet" Relationship="Self.FK_InstrumentTechOps" FromRole="TechOpsSet" ToRole="InstrumentSet" />
+          <NavigationProperty Name="LaborObjectsSet" Relationship="Self.FK_fkLaborObjectsTechOps" FromRole="TechOpsSet" ToRole="LaborObjectsSet" />
+          <NavigationProperty Name="TimeNormSet" Relationship="Self.FK_TimeNormTechOps" FromRole="TechOpsSet" ToRole="TimeNormSet" />
+          <NavigationProperty Name="TPSet" Relationship="Self.FK_TPTechOps" FromRole="TechOpsSet" ToRole="TPSet" />
+        </EntityType>
+        <EntityType Name="TimeNormSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Norm" Type="Double" Nullable="false" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TechOpsSet" Relationship="Self.FK_TimeNormTechOps" FromRole="TimeNormSet" ToRole="TechOpsSet" />
+          <NavigationProperty Name="WorkTypeSet" Relationship="Self.FK_WorkTypeTimeNorm" FromRole="TimeNormSet" ToRole="WorkTypeSet" />
+        </EntityType>
+        <EntityType Name="TPSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturingStepsId" Type="Int32" Nullable="false" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="false" />
+          <Property Name="JobTitleId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobTitleSet" Relationship="Self.FK_JobTitleTP" FromRole="TPSet" ToRole="JobTitleSet" />
+          <NavigationProperty Name="ManufacturingStepsSet" Relationship="Self.fk_ManufacturingStepsTP" FromRole="TPSet" ToRole="ManufacturingStepsSet" />
+          <NavigationProperty Name="ProjectSet" Relationship="Self.FK_fkProjectTP" FromRole="TPSet" ToRole="ProjectSet" />
+          <NavigationProperty Name="TechOpsSet" Relationship="Self.FK_TPTechOps" FromRole="TPSet" ToRole="TechOpsSet" />
+          <NavigationProperty Name="WorkTypeSet" Relationship="Self.FK_fkWorkTypeTP" FromRole="TPSet" ToRole="WorkTypeSet" />
+        </EntityType>
+        <EntityType Name="WorkTypeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TimeNormSet" Relationship="Self.FK_WorkTypeTimeNorm" FromRole="WorkTypeSet" ToRole="TimeNormSet" />
+          <NavigationProperty Name="TPSet" Relationship="Self.FK_fkWorkTypeTP" FromRole="WorkTypeSet" ToRole="TPSet" />
+        </EntityType>
+        <Association Name="FK_InstrumentTechOps">
+          <End Role="InstrumentSet" Type="Self.InstrumentSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstrumentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="InstrumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobTitleTP">
+          <End Role="JobTitleSet" Type="Self.JobTitleSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitleSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="JobTitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fkLaborObjectsTechOps">
+          <End Role="LaborObjectsSet" Type="Self.LaborObjectsSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaborObjectsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="LaborObjectsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ManufacturingStepsTP">
+          <End Role="ManufacturingStepsSet" Type="Self.ManufacturingStepsSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturingStepsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="ManufacturingStepsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fkProjectTP">
+          <End Role="ProjectSet" Type="Self.ProjectSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeNormTechOps">
+          <End Role="TimeNormSet" Type="Self.TimeNormSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeNormSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="TimeNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TPTechOps">
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="1" />
+          <End Role="TechOpsSet" Type="Self.TechOpsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TechOpsSet">
+              <PropertyRef Name="TPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkTypeTimeNorm">
+          <End Role="WorkTypeSet" Type="Self.WorkTypeSet" Multiplicity="1" />
+          <End Role="TimeNormSet" Type="Self.TimeNormSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeNormSet">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fkWorkTypeTP">
+          <End Role="WorkTypeSet" Type="Self.WorkTypeSet" Multiplicity="1" />
+          <End Role="TPSet" Type="Self.TPSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TPSet">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zmkContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InstrumentSet" EntityType="Self.InstrumentSet" />
+          <EntitySet Name="JobTitleSet" EntityType="Self.JobTitleSet" />
+          <EntitySet Name="LaborObjectsSet" EntityType="Self.LaborObjectsSet" />
+          <EntitySet Name="ManufacturingStepsSet" EntityType="Self.ManufacturingStepsSet" />
+          <EntitySet Name="ProjectSet" EntityType="Self.ProjectSet" />
+          <EntitySet Name="TechOpsSet" EntityType="Self.TechOpsSet" />
+          <EntitySet Name="TimeNormSet" EntityType="Self.TimeNormSet" />
+          <EntitySet Name="TPSet" EntityType="Self.TPSet" />
+          <EntitySet Name="WorkTypeSet" EntityType="Self.WorkTypeSet" />
+          <AssociationSet Name="FK_InstrumentTechOps" Association="Self.FK_InstrumentTechOps">
+            <End Role="InstrumentSet" EntitySet="InstrumentSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobTitleTP" Association="Self.FK_JobTitleTP">
+            <End Role="JobTitleSet" EntitySet="JobTitleSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fkLaborObjectsTechOps" Association="Self.FK_fkLaborObjectsTechOps">
+            <End Role="LaborObjectsSet" EntitySet="LaborObjectsSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ManufacturingStepsTP" Association="Self.fk_ManufacturingStepsTP">
+            <End Role="ManufacturingStepsSet" EntitySet="ManufacturingStepsSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fkProjectTP" Association="Self.FK_fkProjectTP">
+            <End Role="ProjectSet" EntitySet="ProjectSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeNormTechOps" Association="Self.FK_TimeNormTechOps">
+            <End Role="TimeNormSet" EntitySet="TimeNormSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TPTechOps" Association="Self.FK_TPTechOps">
+            <End Role="TPSet" EntitySet="TPSet" />
+            <End Role="TechOpsSet" EntitySet="TechOpsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkTypeTimeNorm" Association="Self.FK_WorkTypeTimeNorm">
+            <End Role="WorkTypeSet" EntitySet="WorkTypeSet" />
+            <End Role="TimeNormSet" EntitySet="TimeNormSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fkWorkTypeTP" Association="Self.FK_fkWorkTypeTP">
+            <End Role="WorkTypeSet" EntitySet="WorkTypeSet" />
+            <End Role="TPSet" EntitySet="TPSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="zmkModelStoreContainer" CdmEntityContainer="zmkContext">
+          <EntitySetMapping Name="InstrumentSet">
+            <EntityTypeMapping TypeName="zmkModel.InstrumentSet">
+              <MappingFragment StoreEntitySet="InstrumentSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTitleSet">
+            <EntityTypeMapping TypeName="zmkModel.JobTitleSet">
+              <MappingFragment StoreEntitySet="JobTitleSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaborObjectsSet">
+            <EntityTypeMapping TypeName="zmkModel.LaborObjectsSet">
+              <MappingFragment StoreEntitySet="LaborObjectsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManufacturingStepsSet">
+            <EntityTypeMapping TypeName="zmkModel.ManufacturingStepsSet">
+              <MappingFragment StoreEntitySet="ManufacturingStepsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectSet">
+            <EntityTypeMapping TypeName="zmkModel.ProjectSet">
+              <MappingFragment StoreEntitySet="ProjectSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="params" ColumnName="params" />
+                <ScalarProperty Name="create_time" ColumnName="create_time" />
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechOpsSet">
+            <EntityTypeMapping TypeName="zmkModel.TechOpsSet">
+              <MappingFragment StoreEntitySet="TechOpsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LaborObjectsId" ColumnName="LaborObjectsId" />
+                <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
+                <ScalarProperty Name="TPId" ColumnName="TPId" />
+                <ScalarProperty Name="TimeNormId" ColumnName="TimeNormId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeNormSet">
+            <EntityTypeMapping TypeName="zmkModel.TimeNormSet">
+              <MappingFragment StoreEntitySet="TimeNormSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPSet">
+            <EntityTypeMapping TypeName="zmkModel.TPSet">
+              <MappingFragment StoreEntitySet="TPSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ManufacturingStepsId" ColumnName="ManufacturingStepsId" />
+                <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
+                <ScalarProperty Name="JobTitleId" ColumnName="JobTitleId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkTypeSet">
+            <EntityTypeMapping TypeName="zmkModel.WorkTypeSet">
+              <MappingFragment StoreEntitySet="WorkTypeSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
