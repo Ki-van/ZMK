@@ -10,8 +10,10 @@ namespace ZMK
 {
     public partial class addProjectForm : Form
     {
-        public addProjectForm()
+        private ProjectSet project; 
+        public addProjectForm(ProjectSet project)
         {
+            this.project = project;
             InitializeComponent();
         }
 
@@ -19,22 +21,20 @@ namespace ZMK
         {
             if (tb_name.Text != null)
             {
-                using (var context = new zmkContext())
-                {
-                    context.ProjectSet.Add(new ProjectSet
-                    {
-                        name = tb_name.Text,
-                        description = tb_description.Text,
-                        create_time = DateTime.Now,
-                        update_time = DateTime.Now
-                    });
-                    context.SaveChanges();
-                }
-
-
-                this.Close();
+               project.name = tb_name.Text;
+               project.description = tb_description.Text;
+               project.create_time = DateTime.Now;
+               project.update_time = DateTime.Now;
+               this.DialogResult = DialogResult.OK;
+               this.Close();
             } else
                 MessageBox.Show("Заполните поле Название", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

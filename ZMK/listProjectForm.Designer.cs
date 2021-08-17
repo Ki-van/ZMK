@@ -33,6 +33,10 @@ namespace ZMK
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(listProjectForm));
             this.grid_projects = new System.Windows.Forms.DataGridView();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatetimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.zmkDataSet = new ZMK.zmkDataSet();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,13 +48,13 @@ namespace ZMK
             this.tb_describe_project = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatetimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.grid_projects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zmkDataSet)).BeginInit();
             this.gb_projectProps.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grid_projects
@@ -58,13 +62,16 @@ namespace ZMK
             this.grid_projects.AllowUserToAddRows = false;
             this.grid_projects.AllowUserToDeleteRows = false;
             this.grid_projects.AllowUserToOrderColumns = true;
+            this.grid_projects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.grid_projects.AutoGenerateColumns = false;
             this.grid_projects.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_projects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_projects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.index,
             this.nameDataGridViewTextBoxColumn,
-            this.updatetimeDataGridViewTextBoxColumn});
+            this.updatetimeDataGridViewTextBoxColumn,
+            this.Id});
             this.grid_projects.DataSource = this.projectSetBindingSource;
             this.grid_projects.Location = new System.Drawing.Point(17, 92);
             this.grid_projects.MultiSelect = false;
@@ -72,9 +79,47 @@ namespace ZMK
             this.grid_projects.ReadOnly = true;
             this.grid_projects.RowHeadersVisible = false;
             this.grid_projects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid_projects.Size = new System.Drawing.Size(505, 346);
+            this.grid_projects.Size = new System.Drawing.Size(505, 401);
             this.grid_projects.TabIndex = 0;
+            this.grid_projects.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_projects_RowsAdded);
+            this.grid_projects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.grid_projects_RowsRemoved);
             this.grid_projects.SelectionChanged += new System.EventHandler(this.grid_projects_SelectionChanged);
+            // 
+            // index
+            // 
+            this.index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.index.HeaderText = "№";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.Width = 43;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Название";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // updatetimeDataGridViewTextBoxColumn
+            // 
+            this.updatetimeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.updatetimeDataGridViewTextBoxColumn.DataPropertyName = "update_time";
+            this.updatetimeDataGridViewTextBoxColumn.HeaderText = "Последнее обновление";
+            this.updatetimeDataGridViewTextBoxColumn.Name = "updatetimeDataGridViewTextBoxColumn";
+            this.updatetimeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.updatetimeDataGridViewTextBoxColumn.Width = 138;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
             // 
             // projectSetBindingSource
             // 
@@ -104,6 +149,7 @@ namespace ZMK
             this.btn_removeProject.Size = new System.Drawing.Size(35, 35);
             this.btn_removeProject.TabIndex = 3;
             this.btn_removeProject.UseVisualStyleBackColor = true;
+            this.btn_removeProject.Click += new System.EventHandler(this.btn_removeProject_Click);
             // 
             // btn_addProject
             // 
@@ -121,13 +167,16 @@ namespace ZMK
             // 
             // gb_projectProps
             // 
+            this.gb_projectProps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gb_projectProps.Controls.Add(this.lb_create_date);
             this.gb_projectProps.Controls.Add(this.tb_describe_project);
             this.gb_projectProps.Controls.Add(this.label4);
             this.gb_projectProps.Controls.Add(this.label2);
             this.gb_projectProps.Location = new System.Drawing.Point(528, 92);
             this.gb_projectProps.Name = "gb_projectProps";
-            this.gb_projectProps.Size = new System.Drawing.Size(420, 346);
+            this.gb_projectProps.Size = new System.Drawing.Size(420, 401);
             this.gb_projectProps.TabIndex = 4;
             this.gb_projectProps.TabStop = false;
             this.gb_projectProps.Text = "groupBox1";
@@ -144,6 +193,8 @@ namespace ZMK
             // 
             // tb_describe_project
             // 
+            this.tb_describe_project.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_describe_project.Location = new System.Drawing.Point(104, 19);
             this.tb_describe_project.Multiline = true;
             this.tb_describe_project.Name = "tb_describe_project";
@@ -169,39 +220,28 @@ namespace ZMK
             this.label2.TabIndex = 0;
             this.label2.Text = "Описание: ";
             // 
-            // index
+            // statusStrip1
             // 
-            this.index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.index.HeaderText = "№";
-            this.index.Name = "index";
-            this.index.ReadOnly = true;
-            this.index.Width = 43;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 496);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(960, 22);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // nameDataGridViewTextBoxColumn
+            // toolStripStatusLabel1
             // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Название";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // updatetimeDataGridViewTextBoxColumn
-            // 
-            this.updatetimeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.updatetimeDataGridViewTextBoxColumn.DataPropertyName = "update_time";
-            this.updatetimeDataGridViewTextBoxColumn.HeaderText = "Последнее обновление";
-            this.updatetimeDataGridViewTextBoxColumn.Name = "updatetimeDataGridViewTextBoxColumn";
-            this.updatetimeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.updatetimeDataGridViewTextBoxColumn.Width = 151;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(114, 17);
+            this.toolStripStatusLabel1.Text = "StatusLabelLeftMost";
             // 
             // listProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 451);
+            this.ClientSize = new System.Drawing.Size(960, 518);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gb_projectProps);
             this.Controls.Add(this.btn_removeProject);
             this.Controls.Add(this.btn_addProject);
@@ -216,6 +256,8 @@ namespace ZMK
             ((System.ComponentModel.ISupportInitialize)(this.zmkDataSet)).EndInit();
             this.gb_projectProps.ResumeLayout(false);
             this.gb_projectProps.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,6 +280,9 @@ namespace ZMK
         private System.Windows.Forms.DataGridViewTextBoxColumn index;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatetimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
