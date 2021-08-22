@@ -12,18 +12,18 @@ namespace ZMK
     using System;
     using System.Collections.Generic;
     
-    public partial class JobTitleSet
+    public partial class LaborObjects
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public JobTitleSet()
+        public LaborObjects()
         {
-            this.TPSet = new HashSet<TPSet>();
+            this.TechOpsSet = new HashSet<TechOps>();
         }
     
         public int Id { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TPSet> TPSet { get; set; }
+        public virtual ICollection<TechOps> TechOpsSet { get; set; }
     }
 }

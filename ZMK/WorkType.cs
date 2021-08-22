@@ -12,18 +12,21 @@ namespace ZMK
     using System;
     using System.Collections.Generic;
     
-    public partial class InstrumentSet
+    public partial class WorkType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public InstrumentSet()
+        public WorkType()
         {
-            this.TechOpsSet = new HashSet<TechOpsSet>();
+            this.TimeNormSet = new HashSet<TimeNorm>();
+            this.TPSet = new HashSet<TP>();
         }
     
         public int Id { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TechOpsSet> TechOpsSet { get; set; }
+        public virtual ICollection<TimeNorm> TimeNormSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TP> TPSet { get; set; }
     }
 }

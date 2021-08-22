@@ -12,12 +12,12 @@ namespace ZMK
     using System;
     using System.Collections.Generic;
     
-    public partial class TimeNormSet
+    public partial class TimeNorm
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TimeNormSet()
+        public TimeNorm()
         {
-            this.TechOpsSet = new HashSet<TechOpsSet>();
+            this.TechOpsSet = new HashSet<TechOps>();
         }
     
         public long Id { get; set; }
@@ -26,7 +26,7 @@ namespace ZMK
         public int WorkTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TechOpsSet> TechOpsSet { get; set; }
-        public virtual WorkTypeSet WorkTypeSet { get; set; }
+        public virtual ICollection<TechOps> TechOpsSet { get; set; }
+        public virtual WorkType WorkTypeSet { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace ZMK
 {
     public partial class addProjectForm : Form
     {
-        private ProjectSet project; 
+        private  project; 
         public addProjectForm(ProjectSet project)
         {
             this.project = project;

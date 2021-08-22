@@ -12,7 +12,7 @@ namespace ZMK
     using System;
     using System.Collections.Generic;
     
-    public partial class TechOpsSet
+    public partial class TechOps
     {
         public long Id { get; set; }
         public string Description { get; set; }
@@ -21,9 +21,9 @@ namespace ZMK
         public long TPId { get; set; }
         public long TimeNormId { get; set; }
     
-        public virtual InstrumentSet InstrumentSet { get; set; }
-        public virtual LaborObjectsSet LaborObjectsSet { get; set; }
-        public virtual TimeNormSet TimeNormSet { get; set; }
-        public virtual TPSet TPSet { get; set; }
+        public virtual Instrument InstrumentSet { get; set; }
+        public virtual LaborObjects LaborObjectsSet { get; set; }
+        public virtual TimeNorm TimeNormSet { get; set; }
+        public virtual TP TPSet { get; set; }
     }
 }

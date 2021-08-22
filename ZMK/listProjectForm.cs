@@ -15,13 +15,13 @@ namespace ZMK
         public listProjectForm()
         {
             InitializeComponent();
-            
+                        
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'zmkDataSet.ProjectSet' table. You can move, or remove it, as needed.
-            this.projectSetTableAdapter.Fill(this.zmkDataSet.ProjectSet);
+            this.projectSetTableAdapter.Fill(this.zmkDataSet.project_metaSet);
             setIndexes();
 
 
@@ -46,9 +46,9 @@ namespace ZMK
             {
                 gb_projectProps.Visible = true;
 
-                zmkDataSet.ProjectSetRow row = (ZMK.zmkDataSet.ProjectSetRow)zmkDataSet.ProjectSet.Rows[grid_projects.SelectedRows[0].Index];
-                tb_describe_project.Text = row.description;
-                lb_create_date.Text = row.create_time.ToString();
+                zmkDataSet.project_metaSetRow row = (ZMK.zmkDataSet.project_metaSetRow)zmkDataSet.project_metaSet.Rows[grid_projects.SelectedRows[0].Index];
+                tb_describe_project.Text = row.descriptiono;
+                lb_create_date.Text = row.created_at.ToString();
                 gb_projectProps.Text = row.name;
             }
             else
@@ -57,23 +57,24 @@ namespace ZMK
 
         private async void  btn_addProject_Click(object sender, EventArgs e)
         {
-            ProjectSet project = new ProjectSet();
-            DialogResult result = (new addProjectForm(project) { 
+            project_meta project = new project_meta();
+           /* DialogResult result = (new (project) { 
                 Owner = this,
                 StartPosition = FormStartPosition.CenterParent
             }).ShowDialog();
             
             if (result == DialogResult.OK)
             {
-                using (var context = new zmkContext())
+                using (var context = new ZMK.z())
                 {
+                    
                     context.ProjectSet.Add(project);
                     await context.SaveChangesAsync();
                 }
             }
             
             projectSetTableAdapter.Fill(zmkDataSet.ProjectSet);
-            grid_projects.Refresh();
+            grid_projects.Refresh();*/
         }
 
         private async void btn_removeProject_Click(object sender, EventArgs e)
@@ -84,14 +85,14 @@ namespace ZMK
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    using (var context = new zmkContext())
+                   /* using (var context = new zmkContext())
                     {
                         context.Database.ExecuteSqlCommand("delete from ProjectSet where Id = " + (int) grid_projects.SelectedRows[0].Cells[3].Value);
                         await context.SaveChangesAsync();
                         int removedRowIndex = grid_projects.SelectedRows[0].Index;
                         grid_projects.ClearSelection();
                         grid_projects.Rows.RemoveAt(removedRowIndex);
-                    }
+                    }*/
                 }
             }
         }
@@ -104,6 +105,11 @@ namespace ZMK
         private void grid_projects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             setIndexes();
+        }
+
+        private void grid_projects_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

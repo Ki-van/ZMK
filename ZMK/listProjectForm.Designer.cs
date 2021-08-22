@@ -42,7 +42,7 @@ namespace ZMK
             this.label1 = new System.Windows.Forms.Label();
             this.btn_removeProject = new System.Windows.Forms.Button();
             this.btn_addProject = new System.Windows.Forms.Button();
-            this.projectSetTableAdapter = new ZMK.zmkDataSetTableAdapters.ProjectSetTableAdapter();
+            this.projectSetTableAdapter = new ZMK.zmkDataSetTableAdapters.project_metaSetTableAdapter();
             this.gb_projectProps = new System.Windows.Forms.GroupBox();
             this.lb_create_date = new System.Windows.Forms.Label();
             this.tb_describe_project = new System.Windows.Forms.TextBox();
@@ -81,6 +81,7 @@ namespace ZMK
             this.grid_projects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_projects.Size = new System.Drawing.Size(505, 401);
             this.grid_projects.TabIndex = 0;
+            this.grid_projects.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_projects_CellContentDoubleClick);
             this.grid_projects.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_projects_RowsAdded);
             this.grid_projects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.grid_projects_RowsRemoved);
             this.grid_projects.SelectionChanged += new System.EventHandler(this.grid_projects_SelectionChanged);
@@ -199,6 +200,7 @@ namespace ZMK
             this.tb_describe_project.Multiline = true;
             this.tb_describe_project.Name = "tb_describe_project";
             this.tb_describe_project.ReadOnly = true;
+            this.tb_describe_project.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_describe_project.Size = new System.Drawing.Size(310, 120);
             this.tb_describe_project.TabIndex = 3;
             // 
@@ -271,7 +273,7 @@ namespace ZMK
         private System.Windows.Forms.Button btn_removeProject;
         private zmkDataSet zmkDataSet;
         private System.Windows.Forms.BindingSource projectSetBindingSource;
-        private zmkDataSetTableAdapters.ProjectSetTableAdapter projectSetTableAdapter;
+        private zmkDataSetTableAdapters.project_metaSetTableAdapter projectSetTableAdapter;
         private System.Windows.Forms.GroupBox gb_projectProps;
         private System.Windows.Forms.Label lb_create_date;
         private System.Windows.Forms.TextBox tb_describe_project;

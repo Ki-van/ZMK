@@ -12,26 +12,21 @@ namespace ZMK
     using System;
     using System.Collections.Generic;
     
-    public partial class TPSet
+    public partial class ManufacturingStep
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TPSet()
+        public ManufacturingStep()
         {
-            this.TechOpsSet = new HashSet<TechOpsSet>();
+            this.TPSet = new HashSet<TP>();
+            this.ProjectStep = new HashSet<ProjectStep>();
         }
     
-        public long Id { get; set; }
-        public string Description { get; set; }
-        public int ManufacturingStepsId { get; set; }
-        public int WorkTypeId { get; set; }
-        public int JobTitleId { get; set; }
-        public int ProjectId { get; set; }
+        public int Id { get; set; }
+        public string name { get; set; }
     
-        public virtual JobTitleSet JobTitleSet { get; set; }
-        public virtual ManufacturingStepsSet ManufacturingStepsSet { get; set; }
-        public virtual ProjectSet ProjectSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TechOpsSet> TechOpsSet { get; set; }
-        public virtual WorkTypeSet WorkTypeSet { get; set; }
+        public virtual ICollection<TP> TPSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectStep> ProjectStep { get; set; }
     }
 }
